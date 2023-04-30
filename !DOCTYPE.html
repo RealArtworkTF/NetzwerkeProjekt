@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Todo-Liste</title>
+  </head>
+  <body>
+    <h1>Todo-Liste</h1>
+    <form>
+      <label for="todo">Neue Aufgabe hinzufügen:</label>
+      <input type="text" id="todo" name="todo">
+      <button type="submit">Hinzufügen</button>
+    </form>
+    <ul id="todo-list">
+      <li>Erste Aufgabe <button onclick="removeTask(this)">Entfernen</button></li>
+      <li>Zweite Aufgabe <button onclick="removeTask(this)">Entfernen</button></li>
+      <li>Dritte Aufgabe <button onclick="removeTask(this)">Entfernen</button></li>
+    </ul>
+    
+    <script>
+      // Elemente auswählen
+      const form = document.querySelector('form');
+      const input = document.querySelector('#todo');
+      const ul = document.querySelector('#todo-list');
+
+      // Event-Handler für das Formular registrieren
+      form.addEventListener('submit', e => {
+        e.preventDefault(); // das Standardverhalten des Formulars unterbinden
+        const text = input.value.trim(); // den Text aus dem Textfeld extrahieren
+        if (text !== '') { // wenn das Textfeld nicht leer ist...
+          // ein neues Listen-Element erstellen
+          const li = document.createElement('li');
+          li.textContent = text;
+          // einen Button zum Entfernen der Aufgabe hinzufügen
+          const button = document.createElement('button');
+          button.textContent = 'Entfernen';
+          button.onclick = function() {
+            ul.removeChild(li); // das Listen-Element aus der Liste entfernen
+          };
+          li.appendChild(button);
+          ul.appendChild(li); // das Listen-Element zur Liste hinzufügen
+          input.value = ''; // das Textfeld leeren
+        }
+      });
+      
+      // Funktion zum Entfernen von Aufgaben
+      function removeTask(button) {
+        const li = button.parentNode; // das Listen-Element auswählen
+        ul.removeChild(li); // das Listen-Element aus der Liste entfernen
+      }
+    </script>
+  </body>
+</html>
+
