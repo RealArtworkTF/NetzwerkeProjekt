@@ -1,5 +1,5 @@
 # NetzwerkeProjekt
-NetzwerkeProjekt
+
 
 # Good to know
 
@@ -11,7 +11,7 @@ Beide commands machen das gleiche, nur 1x mit port-forwarding
     docker run -it netzwerkprojekt #nicht sichtbar      
     docker run -it -p 81:80 netzwerkprojekt
 
-
+# HIER STARTEN
 
 # Datenbank aufbauen
     docker run -d -e POSTGRES_PASSWORD=password -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 postgres
@@ -31,6 +31,7 @@ Dort die IPv4 Addresse kopieren (wird unten verwendet)
 
 
 # Rails app bauen
+
 https://deallen7.medium.com/how-to-build-a-todo-app-in-rails-e6571fcccac3
 
 bundle exec rails db:create # erzeugt db
