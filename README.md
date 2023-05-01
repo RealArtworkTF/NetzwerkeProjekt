@@ -3,7 +3,7 @@
 
 # Good to know
 
-Beide folgenden commands machen das selbe, nur 1x mit flag-tag 
+Beide folgenden commands machen das selbe, nur 1x mit flag-tag (damit das image einen Namen erhält, hier: "netzwerkprojekt")
 
     docker build .   
     docker build --tag netzwerkprojekt .     
