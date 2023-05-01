@@ -36,10 +36,10 @@ Dort die IPv4 Addresse kopieren (wird unten verwendet)
 
 https://deallen7.medium.com/how-to-build-a-todo-app-in-rails-e6571fcccac3
 
-bundle exec rails db:create # erzeugt db
-bundle exec rails generate scaffold Task title:string
-bundle exec rails db:migrate # fuer die db migrationen aus
-bundle exec rails server # startet den server
+    bundle exec rails db:create # erzeugt db
+    bundle exec rails generate scaffold Task title:string
+    bundle exec rails db:migrate # fuer die db migrationen aus
+    bundle exec rails server # startet den server
 
 # Rails in docker
 
@@ -58,4 +58,5 @@ zum netzwerk hinzufügen (wie davor CONTAINER_ID kopieren)
     docker network connect rails-network <CONTAINER_ID>
 
 Dann im Browser localhost:3000 aufrufen
-username netz password w3rk3n
+username: netz 
+password: w3rk3n
