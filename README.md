@@ -58,5 +58,6 @@ zum netzwerk hinzufügen (wie davor CONTAINER_ID kopieren)
     docker network connect rails-network <CONTAINER_ID>
 
 Dann im Browser localhost:3000 aufrufen
-username: netz 
+
+username: netz //
 password: w3rk3n
