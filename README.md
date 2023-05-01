@@ -4,14 +4,16 @@
 # Good to know
 
 Beide folgenden commands machen das selbe, nur 1x mit flag-tag 
+
     docker build .   
     docker build --tag netzwerkprojekt .     
 
 Beide commands machen das gleiche, nur 1x mit port-forwarding
+
     docker run -it netzwerkprojekt #nicht sichtbar      
     docker run -it -p 81:80 netzwerkprojekt
 
-# HIER STARTEN
+# HIER STARTEN!!!
 
 # Datenbank aufbauen
     docker run -d -e POSTGRES_PASSWORD=password -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 postgres
