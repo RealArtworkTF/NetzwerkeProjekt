@@ -76,7 +76,9 @@ Danach Datei in dem “ProjektNetzwerke” Ordner abspeichern (Das ist der Ordne
 # Nun müssen folgende Anweisungen in der Eingabeaufforderung erfolgen:
     
     Cd <Dateipfad> # wo der Ordner “ProjektNetzwerke” ist (der, bevor man in den Ordner Todo geht)]
-    Bsp: Cd C:\Users\User\OneDrive\Desktop\ProjektNetzwerke
+ Bsp:
+    
+    Cd C:\Users\User\OneDrive\Desktop\ProjektNetzwerke
 --> Man geht in den Benannten Ordner
 
     Docker run -d -e POSTGRES_PASSWORD=password -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 postgres 
@@ -86,14 +88,20 @@ Danach Datei in dem “ProjektNetzwerke” Ordner abspeichern (Das ist der Ordne
 --> Man erstellt einen Docker Swarm
 
     docker stack deploy -c docker-compose.yml <my_app>
-    Bsp: docker stack deplo docker push ftomuni/netzwerkimage:1.0 y --compose-file docker-compose.yml todo_stack
+ Bsp:
+    
+    docker stack deplo docker push ftomuni/netzwerkimage:1.0 y --compose-file docker-compose.yml todo_stack
 --> Es wird ein Docker stack basierend auf der yml Datei erstellt (siehe Anhang)
     
     Cd <Dateipfad> (sofern er nicht unbenannt wurde, der Todo Ordner)
+Bsp:
+
     Cd Todo
 -->Man springt in den Ordner Todo
 
     docker build --tag <Name_Docker_Image> .
+Bsp:   
+    
     docker build --tag netwerkprojekt_rails .
 --> Es wird ein Docker Image aus denn Dateien des aktuellen Verzeichneses erstellt und ihm dem Namen netzerkprojekt_rails erstellt
 
@@ -101,15 +109,21 @@ Danach Datei in dem “ProjektNetzwerke” Ordner abspeichern (Das ist der Ordne
 --> Man meldet sich in seinem Docker Hub an
 
     docker tag <Name_Docker_Image> <dockerhub_username>/<repository_name>:<tag>
-    Bsp: docker tag netwerkprojekt_rails ftomuni/netzwerkimage:1.0
+Bsp: 
+ 
+    docker tag netwerkprojekt_rails ftomuni/netzwerkimage:1.0
 --> Docker Image bekommt einen neuen Namen und man gibt ihn weitere Daten (Denn eigenen Dockerhub Namen und ein Ziel Verzeichnis) um es mit folgendem Befehl hochzuladen
     
     Docker push <dockerhub_username>/<repository_name>:<tag>
+Bsp:
+    
     docker push ftomuni/netzwerkimage:1.0
 -->Docker Image wird Hochgeladen
 
     Docker run -d -p 4000:3000 -e DB_Host= <IPV 4 adresse> <Name_Docker_Image>
-    Bsp.: Docker run -d -p 4000:3000 -e DB_Host=172.18.0.2/16 netwerkprojekt_rails
+   Bsp.:
+   
+    Docker run -d -p 4000:3000 -e DB_Host=172.18.0.2/16 netwerkprojekt_rails
 --> startet einen Docker Container basierend auf dem angegeben Docker
 
     docker service create --name todo-app --publish 3000:3000 --env DATABASE_URL=postgres://postgres:postgres@db:5432/todo_development --replicas 3 todo
@@ -118,6 +132,8 @@ Danach Datei in dem “ProjektNetzwerke” Ordner abspeichern (Das ist der Ordne
 -->Danach kommt Fehlermeldung --> man muss daraufhin die Eingabeaufforderung Neustarten
     
     docker network connect rails-network <CONTAINER_ID> (Vom neuesten _Network Docker [siehe Docker Desktop])
+ Bsp:
+    
     docker network connect rails-network d7425a0f91e939b50868d91dab69ee4761a9a59172aa9cf1e31bf373e5cf5973
 --> verbindet denn Docker mit dem Rails Network
 
@@ -133,11 +149,13 @@ Leider wissen wir ab diesem Punkt nicht weiter
     Bsp.:docker search ftomuni/netzwerkimage
 
 -->zeigt an, ob er das Docker Image findet:
+
     NAME                    DESCRIPTION   STARS     OFFICIAL   AUTOMATED
     ftomuni/netzwerkimage                 0
 
     docker images
 -->zeigt alle Images an Ergebnis müsste sein:
+
     REPOSITORY              TAG       IMAGE ID       CREATED       SIZE
     postgres                <none>    0c88fbae765e   3 days ago    379MB
     ftomuni/netzwerkimage   1.0       c8b9a48acb79   3 weeks ago   1.02GB
@@ -145,6 +163,7 @@ Leider wissen wir ab diesem Punkt nicht weiter
 
     docker service ls
 --> zeigt alle Service an Ergebnis müsste sein:
+
     ID             NAME             MODE         REPLICAS   IMAGE             PORTS
     di6cb5646hg6   todo-app         replicated   0/3        todo:latest       *:3000->3000/tcp
     iyogqg7yrsiw   todo_stack_db    replicated   1/1        postgres:latest   *:5433->5432/tcp
@@ -154,9 +173,9 @@ Leider wissen wir ab diesem Punkt nicht weiter
     
 “Docker-compose.yml”  Datei:
     
-version: '3'
-services:
-  web:
+    version: '3'
+    services:
+    web:
     image: todo
     ports:
       - "4000:3000"
@@ -164,7 +183,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/todo_development
-  db:
+    db:
     image: postgres
     ports:
       - "5432:5432"
