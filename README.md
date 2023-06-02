@@ -63,7 +63,7 @@ Dann im Browser localhost:3000 aufrufen
 username: netz //
 password: w3rk3n
 
-# HIER STARTEN für Docker mit Rails + SWARM (überschneidet sich an einigen Punkten mit dem davor) <Nicht Funktionsfähig>:
+# HIER STARTEN für Docker mit Rails + SWARM (überschneidet sich an einigen Punkten mit dem davor) <Nicht  vollständig Funktionsfähig>:
 
 Es folgt eine Allgemeine Anleitung mit jeweiligen Beispielen (Falls es ein Befehl ist, der nicht Individuell angepasst werden muss, kommt kein Beispiel, da es schon allgemein ist) und einer mit --> gegenzeichneten kurzen Erklärung
 Wir empfehlen dennoch alle folgenden Beispiele zu Copy Pasten (Es sollte aber immer auf die jeweiligen Verzeichnisse und Docker Hub Benutzer Namen angepasst werden):
@@ -74,51 +74,51 @@ Danach YML-Datei mit dem Namen “docker-compose.yml” erstellen (Hierfür beli
 Danach Datei in dem “ProjektNetzwerke” Ordner abspeichern (Das ist der Ordner vor dem Todo Ordner)
 
 # Nun müssen folgende Anweisungen in der Eingabeaufforderung erfolgen:
-
-Cd <Dateipfad> wo der Ordner “ProjektNetzwerke” ist (der, bevor man in den Ordner Todo geht)]
-Bsp: Cd C:\Users\User\OneDrive\Desktop\ProjektNetzwerke
+    
+    Cd <Dateipfad> # wo der Ordner “ProjektNetzwerke” ist (der, bevor man in den Ordner Todo geht)]
+    Bsp: Cd C:\Users\User\OneDrive\Desktop\ProjektNetzwerke
 --> Man geht in den Benannten Ordner
 
-Docker run -d -e POSTGRES_PASSWORD=password -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 postgres 
+    Docker run -d -e POSTGRES_PASSWORD=password -e POSTGRES_HOST_AUTH_METHOD=trust -p 5432:5432 postgres 
 --> Man erstellt denn ersten Docker
 
-Docker Swarm init
+    Docker Swarm init
 --> Man erstellt einen Docker Swarm
 
-docker stack deploy -c docker-compose.yml <my_app>
-Bsp: docker stack deplo docker push ftomuni/netzwerkimage:1.0 y --compose-file docker-compose.yml todo_stack
+    docker stack deploy -c docker-compose.yml <my_app>
+    Bsp: docker stack deplo docker push ftomuni/netzwerkimage:1.0 y --compose-file docker-compose.yml todo_stack
 --> Es wird ein Docker stack basierend auf der yml Datei erstellt (siehe Anhang)
     
-Cd <Dateipfad> (sofern er nicht unbenannt wurde, der Todo Ordner)
-Cd Todo
+    Cd <Dateipfad> (sofern er nicht unbenannt wurde, der Todo Ordner)
+    Cd Todo
 -->Man springt in den Ordner Todo
 
-docker build --tag <Name_Docker_Image> .
-docker build --tag netwerkprojekt_rails .
+    docker build --tag <Name_Docker_Image> .
+    docker build --tag netwerkprojekt_rails .
 --> Es wird ein Docker Image aus denn Dateien des aktuellen Verzeichneses erstellt und ihm dem Namen netzerkprojekt_rails erstellt
 
-Docker login 
+    Docker login 
 --> Man meldet sich in seinem Docker Hub an
 
-docker tag <Name_Docker_Image> <dockerhub_username>/<repository_name>:<tag>
-Bsp: docker tag netwerkprojekt_rails ftomuni/netzwerkimage:1.0
+    docker tag <Name_Docker_Image> <dockerhub_username>/<repository_name>:<tag>
+    Bsp: docker tag netwerkprojekt_rails ftomuni/netzwerkimage:1.0
 --> Docker Image bekommt einen neuen Namen und man gibt ihn weitere Daten (Denn eigenen Dockerhub Namen und ein Ziel Verzeichnis) um es mit folgendem Befehl hochzuladen
     
-Docker push <dockerhub_username>/<repository_name>:<tag>
-docker push ftomuni/netzwerkimage:1.0
+    Docker push <dockerhub_username>/<repository_name>:<tag>
+    docker push ftomuni/netzwerkimage:1.0
 -->Docker Image wird Hochgeladen
 
-Docker run -d -p 4000:3000 -e DB_Host= <IPV 4 adresse> <Name_Docker_Image>
-Bsp.: Docker run -d -p 4000:3000 -e DB_Host=172.18.0.2/16 netwerkprojekt_rails
+    Docker run -d -p 4000:3000 -e DB_Host= <IPV 4 adresse> <Name_Docker_Image>
+    Bsp.: Docker run -d -p 4000:3000 -e DB_Host=172.18.0.2/16 netwerkprojekt_rails
 --> startet einen Docker Container basierend auf dem angegeben Docker
 
-docker service create --name todo-app --publish 3000:3000 --env DATABASE_URL=postgres://postgres:postgres@db:5432/todo_development --replicas 3 todo
+    docker service create --name todo-app --publish 3000:3000 --env DATABASE_URL=postgres://postgres:postgres@db:5432/todo_development --replicas 3 todo
 --> erstellt einen Docker Dienst und repliziert ihn auf Instanzen
 
 -->Danach kommt Fehlermeldung --> man muss daraufhin die Eingabeaufforderung Neustarten
     
-docker network connect rails-network <CONTAINER_ID> (Vom neuesten _Network Docker [siehe Docker Desktop])
-docker network connect rails-network d7425a0f91e939b50868d91dab69ee4761a9a59172aa9cf1e31bf373e5cf5973
+    docker network connect rails-network <CONTAINER_ID> (Vom neuesten _Network Docker [siehe Docker Desktop])
+    docker network connect rails-network d7425a0f91e939b50868d91dab69ee4761a9a59172aa9cf1e31bf373e5cf5973
 --> verbindet denn Docker mit dem Rails Network
 
 # Letzter Schritt:
@@ -129,26 +129,26 @@ Leider wissen wir ab diesem Punkt nicht weiter
 
 # Befehle für Zwischentest, um zu gucken, ob alles erfolgreich installiert wurde:
     
-docker search <registry_username>/<repository_name> 
-Bsp.:docker search ftomuni/netzwerkimage
+    docker search <registry_username>/<repository_name> 
+    Bsp.:docker search ftomuni/netzwerkimage
 
 -->zeigt an, ob er das Docker Image findet:
-NAME                    DESCRIPTION   STARS     OFFICIAL   AUTOMATED
-ftomuni/netzwerkimage                 0
+    NAME                    DESCRIPTION   STARS     OFFICIAL   AUTOMATED
+    ftomuni/netzwerkimage                 0
 
-docker images
+    docker images
 -->zeigt alle Images an Ergebnis müsste sein:
-REPOSITORY              TAG       IMAGE ID       CREATED       SIZE
-postgres                <none>    0c88fbae765e   3 days ago    379MB
-ftomuni/netzwerkimage   1.0       c8b9a48acb79   3 weeks ago   1.02GB
-netzwerkprojekt_rails   latest    c8b9a48acb79   3 weeks ago   1.02GB
+    REPOSITORY              TAG       IMAGE ID       CREATED       SIZE
+    postgres                <none>    0c88fbae765e   3 days ago    379MB
+    ftomuni/netzwerkimage   1.0       c8b9a48acb79   3 weeks ago   1.02GB
+    netzwerkprojekt_rails   latest    c8b9a48acb79   3 weeks ago   1.02GB
 
-docker service ls
+    docker service ls
 --> zeigt alle Service an Ergebnis müsste sein:
-ID             NAME             MODE         REPLICAS   IMAGE             PORTS
-di6cb5646hg6   todo-app         replicated   0/3        todo:latest       *:3000->3000/tcp
-iyogqg7yrsiw   todo_stack_db    replicated   1/1        postgres:latest   *:5433->5432/tcp
-on321ayauomo   todo_stack_web   replicated   0/1        todo:latest       *:4000->3000/tcp
+    ID             NAME             MODE         REPLICAS   IMAGE             PORTS
+    di6cb5646hg6   todo-app         replicated   0/3        todo:latest       *:3000->3000/tcp
+    iyogqg7yrsiw   todo_stack_db    replicated   1/1        postgres:latest   *:5433->5432/tcp
+    on321ayauomo   todo_stack_web   replicated   0/1        todo:latest       *:4000->3000/tcp
 
     
     
